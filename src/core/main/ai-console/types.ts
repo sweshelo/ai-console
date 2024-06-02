@@ -14,6 +14,9 @@ export type Message = {
 };
 
 export type MessageForOpenAIAPI = Omit<Message, "ai" | "author">;
+export type MessageForAnthropicAPI = Omit<Message, "role" | "ai" | "author"> & {
+  role: "user" | "assistant";
+};
 
 export type Thread = {
   messages: Message[];

@@ -18,9 +18,12 @@ import {
 import { Color, Material, Sprite, StyledSpace } from "./style";
 import { callGenerativeAIAPI, getColorFromRole } from "./api";
 import { Thread, Model, Message } from "./types";
-import { Stream } from "openai/streaming";
-import { ImagesResponse } from "openai/resources";
+import { Stream as OpenAIStream } from "openai/streaming";
+import { ChatCompletionChunk, ImagesResponse } from "openai/resources";
 import { createSprite } from "../../lib/styledUnit";
+import { Stream } from "@anthropic-ai/sdk/streaming";
+import { RawMessageStreamEvent } from "@anthropic-ai/sdk/resources";
+import { MessageStream } from "@anthropic-ai/sdk/lib/MessageStream";
 
 function isImagesResponse(value: any): value is ImagesResponse {
   return (
@@ -47,8 +50,10 @@ export const Main = () => {
     { vendor: "OpenAI", name: "gpt-3.5-turbo", type: "chat" },
     { vendor: "OpenAI", name: "gpt-4", type: "chat" },
     { vendor: "OpenAI", name: "gpt-4o", type: "chat" },
+    { vendor: "Anthropic", name: "claude-3-haiku-20240307" },
+    { vendor: "Anthropic", name: "claude-3-opus-20240229" },
+    { vendor: "Anthropic", name: "claude-3-sonnet-20240229" },
     { vendor: "OpenAI", name: "dall-e-3", type: "image" },
-    // { vendor: 'Anthropic', name: 'claude opus' },
   ];
 
   const handleSubmitClick = async () => {
@@ -76,7 +81,7 @@ export const Main = () => {
       thread: _thread,
     });
 
-    if (result instanceof Stream) {
+    if (result instanceof OpenAIStream || result instanceof MessageStream) {
       if (result) {
         setThread((prevThread) => {
           return {
@@ -90,9 +95,20 @@ export const Main = () => {
             ],
           } as Thread;
         });
-        for await (const chunk of result) {
-          console.log(chunk);
-          updateLastMessageInThread(chunk.choices[0]?.delta?.content ?? "");
+
+        switch (llmModel[modelIndex].vendor) {
+          case "OpenAI":
+            for await (const chunk of result) {
+              updateLastMessageInThread(
+                (chunk as ChatCompletionChunk).choices[0]?.delta?.content ?? ""
+              );
+            }
+            break;
+          case "Anthropic":
+            (result as MessageStream).on("text", (text) =>
+              updateLastMessageInThread(text)
+            );
+            break;
         }
       }
     }
