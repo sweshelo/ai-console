@@ -5,6 +5,7 @@ import { res as IgnoreLayout } from "./IgnoreLayout/res";
 import { res as LayoutElement } from "./LayoutElement/res";
 import { res as RectTransform } from "./RectTransform/res";
 import { res as VerticalLayout } from "./VerticalLayout/res";
+import { res as OverlappingLayout } from "./OverlappingLayout/res";
 
 export const Units = {
   Canvas,
@@ -14,4 +15,5 @@ export const Units = {
   LayoutElement,
   RectTransform,
   VerticalLayout,
+  OverlappingLayout,
 };
