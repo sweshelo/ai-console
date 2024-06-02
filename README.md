@@ -5,7 +5,7 @@ Resoniteで複数のAIサービスを統合して利用するためのコンソ�
 ### AI Service
 - [x] OpenAI GPT
 - [x] OpenAI dall-e
-- [ ] Anthropic Claude
+- [x] Anthropic Claude
 
 ### Input
 - [x] Text
