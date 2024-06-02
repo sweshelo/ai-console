@@ -5,7 +5,7 @@ import {
   LayoutElement,
   OverlappingLayout,
   VerticalLayout,
-} from "../../../unit/package/PrimitiveUix/main";
+} from "../../unit/package/PrimitiveUix/main";
 import {
   StyledButton,
   StyledImage,
@@ -14,14 +14,13 @@ import {
   StyledScrollArea,
   StyledText,
   StyledTextField,
-} from "../../../unit/package/StyledUix/main";
+} from "../../unit/package/StyledUix/main";
 import { Color, Material, Sprite, StyledSpace } from "./style";
 import { callGenerativeAIAPI, getColorFromRole } from "./api";
 import { Thread, Model, Message } from "./types";
 import { Stream } from "openai/streaming";
-import { ChatCompletionChunk } from "openai/resources";
 import { ImagesResponse } from "openai/resources";
-import { createSprite } from "../../../lib/styledUnit";
+import { createSprite } from "../../lib/styledUnit";
 
 function isImagesResponse(value: any): value is ImagesResponse {
   return (

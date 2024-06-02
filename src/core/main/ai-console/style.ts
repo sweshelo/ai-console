@@ -3,7 +3,7 @@ import {
   createSprite,
   createStyle,
   createUiUnlitMaterial,
-} from "../../../lib/styledUnit";
+} from "../../lib/styledUnit";
 
 export const { StyledSpace, Sprite, Color, Material } = createStyle({
   Sprite: {
