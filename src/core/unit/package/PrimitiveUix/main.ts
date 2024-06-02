@@ -5,3 +5,4 @@ export { o as IgnoreLayout } from "./IgnoreLayout/main";
 export { o as LayoutElement } from "./LayoutElement/main";
 export { o as RectTransform } from "./RectTransform/main";
 export { o as VerticalLayout } from "./VerticalLayout/main";
+export { o as OverlappingLayout } from "./OverlappingLayout/main";
