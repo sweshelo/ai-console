@@ -17,7 +17,26 @@ import {
 } from "../../../unit/package/StyledUix/main";
 import { Color, Material, Sprite, StyledSpace } from "./style";
 import { callGenerativeAIAPI, getColorFromRole } from "./api";
-import { Thread, Model } from "./types";
+import { Thread, Model, Message } from "./types";
+import { Stream } from "openai/streaming";
+import { ChatCompletionChunk } from "openai/resources";
+import { ImagesResponse } from "openai/resources";
+import { createSprite } from "../../../lib/styledUnit";
+
+function isImagesResponse(value: any): value is ImagesResponse {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "data" in value &&
+    Array.isArray(value.data) &&
+    value.data.every(
+      (item: any) =>
+        typeof item === "object" &&
+        "url" in item &&
+        typeof item.url === "string"
+    )
+  );
+}
 
 export const Main = () => {
   const [prompt, setPrompt] = useState("");
@@ -26,9 +45,10 @@ export const Main = () => {
   const [modelIndex, setModelIndex] = useState(0);
 
   const llmModel: Model[] = [
-    { vendor: "OpenAI", name: "gpt-4o" },
-    { vendor: "OpenAI", name: "gpt-4" },
-    { vendor: "OpenAI", name: "gpt-3.5-turbo" },
+    { vendor: "OpenAI", name: "gpt-3.5-turbo", type: "chat" },
+    { vendor: "OpenAI", name: "gpt-4", type: "chat" },
+    { vendor: "OpenAI", name: "gpt-4o", type: "chat" },
+    { vendor: "OpenAI", name: "dall-e-3", type: "image" },
     // { vendor: 'Anthropic', name: 'claude opus' },
   ];
 
@@ -41,34 +61,62 @@ export const Main = () => {
           {
             role: "user",
             content: prompt.trim(),
+            type: "chat",
           },
         ],
       } as Thread;
+
       callGenerativeAI(updatedThread);
       return updatedThread;
     });
   };
 
   const callGenerativeAI = async (_thread: Thread) => {
-    const stream = await callGenerativeAIAPI({
+    const result = await callGenerativeAIAPI({
       model: llmModel[modelIndex] as Model,
       thread: _thread,
     });
-    if (stream) {
-      setThread((prevThread) => {
-        return {
-          messages: [
-            ...prevThread.messages,
-            {
-              role: "assistant",
-              content: "",
-            },
-          ],
-        } as Thread;
-      });
-      for await (const chunk of stream) {
-        console.log(chunk);
-        updateLastMessageInThread(chunk.choices[0]?.delta?.content ?? "");
+
+    if (result instanceof Stream) {
+      if (result) {
+        setThread((prevThread) => {
+          return {
+            messages: [
+              ...prevThread.messages,
+              {
+                role: "assistant",
+                content: "",
+                type: "chat",
+              },
+            ],
+          } as Thread;
+        });
+        for await (const chunk of result) {
+          console.log(chunk);
+          updateLastMessageInThread(chunk.choices[0]?.delta?.content ?? "");
+        }
+      }
+    }
+
+    if (isImagesResponse(result)) {
+      if (result) {
+        setThread((prevThread) => {
+          return {
+            messages: [
+              ...prevThread.messages,
+              {
+                role: "assistant",
+                content: result.data[0].revised_prompt,
+                type: "chat",
+              },
+              {
+                role: "system",
+                content: result.data[0].url,
+                type: "image",
+              },
+            ] as Message[],
+          };
+        });
       }
     }
   };
@@ -114,10 +162,10 @@ export const Main = () => {
           </LayoutElement>
           <LayoutElement preferredHeight={80}>
             <HorizontalLayout
-              paddingBottom={10}
+              paddingBottom={0}
               paddingTop={20}
-              paddingLeft={40}
-              paddingRight={40}
+              paddingLeft={10}
+              paddingRight={10}
             >
               <LayoutElement minHeight={40}>
                 <StyledButton
@@ -148,7 +196,7 @@ export const Main = () => {
                 <StyledButton
                   styledSprite={Sprite.kadomaru}
                   styledColor={
-                    modelIndex >= llmModel.length ? Color.gray : Color.blue
+                    modelIndex >= llmModel.length - 1 ? Color.gray : Color.blue
                   }
                   onClick={() => {
                     if (modelIndex < llmModel.length - 1)
@@ -164,6 +212,24 @@ export const Main = () => {
                 </StyledButton>
               </LayoutElement>
             </HorizontalLayout>
+          </LayoutElement>
+          <LayoutElement minHeight={50}>
+            <OverlappingLayout paddingLeft={10} paddingRight={10}>
+              <StyledButton
+                styledColor={Color.danger}
+                styledSprite={Sprite.kadomaru}
+                onClick={() => {
+                  setThread({ messages: [] });
+                }}
+              >
+                <StyledText
+                  content="Reset Conversation"
+                  size={30}
+                  horizontalAlign="Center"
+                  verticalAlign="Middle"
+                />
+              </StyledButton>
+            </OverlappingLayout>
           </LayoutElement>
           <LayoutElement preferredHeight={100}>
             <HorizontalLayout
@@ -201,34 +267,71 @@ export const Main = () => {
                   paddingTop={10}
                   spacing={10}
                 >
-                  {thread.messages.map((m) => {
-                    return (
-                      <OverlappingLayout
-                        paddingBottom={5}
-                        paddingLeft={5}
-                        paddingRight={5}
-                        paddingTop={5}
-                      >
-                        <StyledImage
-                          styledSprite={Sprite.kadomaru}
-                          defaultColor={getColorFromRole(m.role)}
-                        />
+                  {thread.messages.map((m, index) => {
+                    if (m.type === "chat") {
+                      return (
                         <OverlappingLayout
-                          paddingBottom={10}
-                          paddingLeft={10}
-                          paddingRight={10}
-                          paddingTop={10}
+                          paddingBottom={5}
+                          paddingLeft={5}
+                          paddingRight={5}
+                          paddingTop={5}
+                          key={`chat-messages-${index}`}
                         >
-                          <StyledText
-                            content={m.content}
-                            styledColor={Color.text}
-                            horizontalAlign="Left"
-                            verticalAlign="Middle"
-                            size={25}
+                          <StyledImage
+                            styledSprite={Sprite.kadomaru}
+                            defaultColor={getColorFromRole(m.role)}
                           />
+                          <OverlappingLayout
+                            paddingBottom={10}
+                            paddingLeft={10}
+                            paddingRight={10}
+                            paddingTop={10}
+                          >
+                            <StyledText
+                              content={m.content}
+                              styledColor={Color.text}
+                              horizontalAlign="Left"
+                              verticalAlign="Middle"
+                              size={25}
+                            />
+                          </OverlappingLayout>
                         </OverlappingLayout>
-                      </OverlappingLayout>
-                    );
+                      );
+                    }
+                    if (m.type === "image") {
+                      const image = createSprite({
+                        url: m.content,
+                        rect: [1, 1, 1, 1],
+                        borders: [0.33333, 0.33333, 0.33333, 0.33333],
+                        scale: 0.1,
+                      });
+                      return (
+                        <OverlappingLayout
+                          paddingBottom={5}
+                          paddingLeft={5}
+                          paddingRight={5}
+                          paddingTop={5}
+                        >
+                          <StyledImage
+                            styledSprite={Sprite.kadomaru}
+                            defaultColor={getColorFromRole(m.role)}
+                          />
+                          <OverlappingLayout
+                            paddingBottom={10}
+                            paddingLeft={10}
+                            paddingRight={10}
+                            paddingTop={10}
+                          >
+                            <LayoutElement minHeight={500}>
+                              <StyledRawImage
+                                url={m.content}
+                                preserveAspect={true}
+                              />
+                            </LayoutElement>
+                          </OverlappingLayout>
+                        </OverlappingLayout>
+                      );
+                    }
                   })}
                 </VerticalLayout>
               </StyledScrollArea>

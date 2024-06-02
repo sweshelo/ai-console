@@ -9,8 +9,9 @@ type callGenerativeAIAPIProps = {
 export const callGenerativeAIAPI = async (props: callGenerativeAIAPIProps) => {
   switch (props.model.vendor) {
     case "OpenAI":
-      return callOpenAIAPI(props);
-
+      return props.model.type === "image"
+        ? callOpenAIImageGenerationAPI(props)
+        : callOpenAIAPI(props);
     case "Anthropic":
       break;
   }
@@ -24,6 +25,18 @@ const callOpenAIAPI = async (props: callGenerativeAIAPIProps) => {
     model: props.model.name,
     messages: props.thread.messages as MessageForOpenAIAPI[],
     stream: true,
+  });
+};
+
+const callOpenAIImageGenerationAPI = async (
+  props: callGenerativeAIAPIProps
+) => {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  return await openai.images.generate({
+    model: props.model.name,
+    prompt: props.thread.messages[props.thread.messages.length - 1].content,
   });
 };
 

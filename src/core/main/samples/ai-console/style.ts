@@ -26,6 +26,7 @@ export const { StyledSpace, Sprite, Color, Material } = createStyle({
     text: createColor([0.9, 0.9, 0.9, 1]),
     blue: createColor([0.4, 0.4, 0.8, 1.0]),
     gray: createColor([0.4, 0.4, 0.4, 1]),
+    danger: createColor([0.8, 0.4, 0.4, 1.0]),
   },
   Material: {
     base: createUiUnlitMaterial({
