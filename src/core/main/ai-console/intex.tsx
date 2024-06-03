@@ -12,7 +12,6 @@ import ResetButton from "./components/ResetButton";
 import InputArea from "./components/InputArea";
 import MessageList from "./components/MessageList";
 import { StyledImage } from "../../unit/package/StyledUix/main";
-import { MessageBody } from "../../unit/package/AiConsole/main";
 
 export const Main = () => {
   const { thread } = useThread();
@@ -47,7 +46,6 @@ export const Main = () => {
             <MessageList messages={thread.messages} />
           </LayoutElement>
         </VerticalLayout>
-        <MessageBody />
       </Canvas>
     </StyledSpace>
   );
