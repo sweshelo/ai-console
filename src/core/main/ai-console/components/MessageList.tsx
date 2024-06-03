@@ -15,6 +15,7 @@ import {
   StyledScrollArea,
   StyledText,
 } from "../../../unit/package/StyledUix/main";
+import { MessageComponent } from "../../../unit/package/AiConsole/main";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
   <StyledMask>
@@ -30,32 +31,11 @@ const MessageList = ({ messages }: { messages: Message[] }) => (
         {messages.map((m, index) => {
           if (m.type === "chat") {
             return (
-              <OverlappingLayout
-                paddingBottom={5}
-                paddingLeft={5}
-                paddingRight={5}
-                paddingTop={5}
-                key={`chat-messages-${index}`}
-              >
-                <StyledImage
-                  styledSprite={Sprite.kadomaru}
-                  defaultColor={getColorFromRole(m.role)}
-                />
-                <OverlappingLayout
-                  paddingBottom={10}
-                  paddingLeft={10}
-                  paddingRight={10}
-                  paddingTop={10}
-                >
-                  <StyledText
-                    content={m.content}
-                    styledColor={Color.text}
-                    horizontalAlign="Left"
-                    verticalAlign="Middle"
-                    size={25}
-                  />
-                </OverlappingLayout>
-              </OverlappingLayout>
+              <MessageComponent
+                key={index}
+                content={m.content}
+                backgroundColor={getColorFromRole(m.role)}
+              />
             );
           }
           if (m.type === "image") {
