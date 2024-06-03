@@ -1,6 +1,6 @@
 import React from "react";
 import { ThreadProvider, useThread } from "./context/ThreadContext";
-import { StyledSpace } from "./style";
+import { Color, Material, Sprite, StyledSpace } from "./style";
 import {
   Canvas,
   LayoutElement,
@@ -11,38 +11,42 @@ import ModelSelector from "./components/ModelSelector";
 import ResetButton from "./components/ResetButton";
 import InputArea from "./components/InputArea";
 import MessageList from "./components/MessageList";
+import { StyledImage } from "../../unit/package/StyledUix/main";
 
 export const Main = () => {
   const { thread } = useThread();
   return (
-    <ThreadProvider>
-      <StyledSpace>
-        <Canvas size={[1000, 1200]}>
-          <VerticalLayout
-            paddingBottom={30}
-            paddingLeft={30}
-            paddingRight={30}
-            paddingTop={50}
-            spacing={20}
-          >
-            <LayoutElement preferredHeight={40}>
-              <Header />
-            </LayoutElement>
-            <LayoutElement preferredHeight={80}>
-              <ModelSelector />
-            </LayoutElement>
-            <LayoutElement minHeight={50}>
-              <ResetButton />
-            </LayoutElement>
-            <LayoutElement preferredHeight={100}>
-              <InputArea />
-            </LayoutElement>
-            <LayoutElement flexibleHeight={1}>
-              <MessageList messages={thread.messages} />
-            </LayoutElement>
-          </VerticalLayout>
-        </Canvas>
-      </StyledSpace>
-    </ThreadProvider>
+    <StyledSpace>
+      <Canvas size={[1000, 1500]}>
+        <StyledImage
+          styledColor={Color.background}
+          styledMaterial={Material.base}
+          styledSprite={Sprite.kadomaru}
+        />
+        <VerticalLayout
+          paddingBottom={30}
+          paddingLeft={30}
+          paddingRight={30}
+          paddingTop={50}
+          spacing={20}
+        >
+          <LayoutElement preferredHeight={40}>
+            <Header />
+          </LayoutElement>
+          <LayoutElement preferredHeight={80}>
+            <ModelSelector />
+          </LayoutElement>
+          <LayoutElement minHeight={50}>
+            <ResetButton />
+          </LayoutElement>
+          <LayoutElement preferredHeight={100}>
+            <InputArea />
+          </LayoutElement>
+          <LayoutElement flexibleHeight={1}>
+            <MessageList messages={thread.messages} />
+          </LayoutElement>
+        </VerticalLayout>
+      </Canvas>
+    </StyledSpace>
   );
 };

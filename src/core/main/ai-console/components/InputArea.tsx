@@ -4,7 +4,7 @@ import {
   LayoutElement,
 } from "../../../unit/package/PrimitiveUix/main";
 import { useThread } from "../context/ThreadContext";
-import { Sprite } from "../style";
+import { Color, Sprite } from "../style";
 import {
   StyledButton,
   StyledText,
@@ -34,7 +34,13 @@ const InputArea = () => {
           defaultColor={[0.4, 0.4, 0.8, 1.0]}
           styledSprite={Sprite.kadomaru}
         >
-          <StyledText content="Submit" />
+          <StyledText
+            content="Submit"
+            size={25}
+            styledColor={Color.text}
+            horizontalAlign="Center"
+            verticalAlign="Middle"
+          />
         </StyledButton>
       </LayoutElement>
     </HorizontalLayout>
