@@ -1,4 +1,3 @@
-// components/MessageList.tsx
 import React from "react";
 import {
   VerticalLayout,

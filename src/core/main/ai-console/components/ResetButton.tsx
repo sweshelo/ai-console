@@ -1,4 +1,3 @@
-// components/ResetButton.tsx
 import React from "react";
 import { OverlappingLayout } from "../../../unit/package/PrimitiveUix/main";
 import { useThread } from "../context/ThreadContext";
