@@ -3,9 +3,9 @@ import { res as GridLayout } from "./GridLayout/res";
 import { res as HorizontalLayout } from "./HorizontalLayout/res";
 import { res as IgnoreLayout } from "./IgnoreLayout/res";
 import { res as LayoutElement } from "./LayoutElement/res";
+import { res as OverlappingLayout } from "./OverlappingLayout/res";
 import { res as RectTransform } from "./RectTransform/res";
 import { res as VerticalLayout } from "./VerticalLayout/res";
-import { res as OverlappingLayout } from "./OverlappingLayout/res";
 
 export const Units = {
   Canvas,
@@ -13,7 +13,7 @@ export const Units = {
   HorizontalLayout,
   IgnoreLayout,
   LayoutElement,
+  OverlappingLayout,
   RectTransform,
   VerticalLayout,
-  OverlappingLayout,
 };
