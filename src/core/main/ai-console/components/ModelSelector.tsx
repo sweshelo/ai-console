@@ -2,6 +2,7 @@ import React from "react";
 import {
   HorizontalLayout,
   LayoutElement,
+  VerticalLayout,
 } from "../../../unit/package/PrimitiveUix/main";
 import { useThread } from "../context/ThreadContext";
 import { Color, Sprite } from "../style";
@@ -35,13 +36,22 @@ const ModelSelector = () => {
         </StyledButton>
       </LayoutElement>
       <LayoutElement preferredWidth={300}>
-        <StyledText
-          content={`${llmModel[modelIndex].vendor} / ${llmModel[modelIndex].name}`}
-          size={30}
-          horizontalAlign="Center"
-          verticalAlign="Middle"
-          styledColor={Color.text}
-        />
+        <VerticalLayout>
+          <StyledText
+            content={`${llmModel[modelIndex].vendor} ${llmModel[modelIndex].shortName}`}
+            size={30}
+            horizontalAlign="Center"
+            verticalAlign="Middle"
+            styledColor={Color.text}
+          />
+          <StyledText
+            content={`${llmModel[modelIndex].description}`}
+            size={20}
+            horizontalAlign="Center"
+            verticalAlign="Middle"
+            styledColor={Color.text}
+          />
+        </VerticalLayout>
       </LayoutElement>
       <LayoutElement minHeight={40}>
         <StyledButton

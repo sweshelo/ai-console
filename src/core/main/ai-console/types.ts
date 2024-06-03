@@ -2,6 +2,8 @@ export type Model = {
   vendor: "OpenAI" | "Anthropic";
   name: string;
   type?: "chat" | "image";
+  shortName: string;
+  description: string;
 };
 
 export type Message = {
