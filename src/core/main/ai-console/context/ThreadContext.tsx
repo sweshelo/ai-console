@@ -1,4 +1,3 @@
-// context/ThreadContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Message, Model, Thread } from "../types";
 import { callGenerativeAIAPI } from "../api";

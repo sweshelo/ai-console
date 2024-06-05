@@ -39,7 +39,7 @@ const callAnthropicAPI = async (props: callGenerativeAIAPIProps) => {
   const anthropic = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY,
   });
-  return await anthropic.messages.stream({
+  return anthropic.messages.stream({
     max_tokens: 1024,
     messages: props.thread.messages.map((m) => ({
       content: m.content,
