@@ -12,7 +12,7 @@ import {
 } from "../../../unit/package/StyledUix/main";
 
 const InputArea = () => {
-  const { prompt, setPrompt, callAiAPI } = useThread();
+  const { prompt, setPrompt, callAiAPI, isGenerating } = useThread();
 
   return (
     <HorizontalLayout
@@ -31,6 +31,7 @@ const InputArea = () => {
       <LayoutElement preferredWidth={100}>
         <StyledButton
           onClick={callAiAPI}
+          enabled={!isGenerating}
           defaultColor={[0.4, 0.4, 0.8, 1.0]}
           styledSprite={Sprite.kadomaru}
         >

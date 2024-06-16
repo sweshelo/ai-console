@@ -16,6 +16,8 @@ interface ThreadContextProps {
   modelIndex: number;
   setModelIndex: (index: number) => void;
   callAiAPI: () => void;
+  isGenerating: boolean;
+  setGenerating: (isGenerating: boolean) => void;
 }
 
 const ThreadContext = createContext<ThreadContextProps | undefined>(undefined);
@@ -44,9 +46,15 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
   const [resultMessage, setResultMessage] = useState("");
   const [thread, setThread] = useState<Thread>({ messages: [] });
   const [modelIndex, setModelIndex] = useState(0);
+  const [isGenerating, setGenerating] = useState(false);
 
   const callAiAPI = async () => {
     if (prompt.trim().length === 0) return;
+
+    // 何故かAnthropicAPIを呼ぶときだけsetGenerating(true)が動かない
+    console.log(`Generating status change to true.`);
+    setGenerating(true);
+
     setThread((prevThread) => {
       const updatedThread = {
         messages: [
@@ -65,6 +73,21 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
   };
 
   const callGenerativeAI = async (_thread: Thread) => {
+    if (llmModel[modelIndex].type === "image") {
+      setThread((prevThread) => {
+        return {
+          messages: [
+            ...prevThread.messages,
+            {
+              role: "system",
+              content: "Generating image. Wait a moment ...",
+              type: "chat",
+            },
+          ],
+        } as Thread;
+      });
+    }
+
     const result = await callGenerativeAIAPI({
       model: llmModel[modelIndex] as Model,
       thread: _thread,
@@ -92,11 +115,13 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
                 (chunk as ChatCompletionChunk).choices[0]?.delta?.content ?? ""
               );
             }
+            setGenerating(false);
             break;
           case "Anthropic":
             (result as MessageStream).on("text", (text) =>
               updateLastMessageInThread(text)
             );
+            (result as MessageStream).on("end", () => setGenerating(false));
             break;
         }
       }
@@ -123,6 +148,7 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
         });
       }
     }
+    setGenerating(false);
   };
 
   const updateLastMessageInThread = (content: string) => {
@@ -152,6 +178,8 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
         modelIndex,
         setModelIndex,
         callAiAPI,
+        isGenerating,
+        setGenerating,
       }}
     >
       {children}
