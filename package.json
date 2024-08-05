@@ -1,6 +1,6 @@
 {
   "name": "ai-console",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "start": "node --require dotenv/config ./dist/server/index.js",
     "build": "run-p build:*",
