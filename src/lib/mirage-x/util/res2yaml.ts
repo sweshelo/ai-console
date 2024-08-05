@@ -347,4 +347,11 @@ const res2flat = (
 export const res2yaml = (
   resObject: ResObject,
   types?: ResComponentType[]
-): string => stringify(res2flat(resObject, types).data.Object);
+): string => {
+  return stringify(
+    res2flat(
+      resObject,
+      types?.map((type) => (type as string).replace(/\[.*?\]/g, ""))
+    ).data.Object
+  );
+};
