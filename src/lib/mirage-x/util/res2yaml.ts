@@ -9,7 +9,7 @@ type ResField<T> = {
   Data: T;
 };
 
-type ResComponentType = string;
+type ResComponentType = string | number;
 
 type ResComponent = {
   Type: ResComponentType;
@@ -39,6 +39,7 @@ type ResObject = {
   Object: ResSlot;
   Assets: ResComponent[];
   TypeVersions: { [key: ResComponentType]: number };
+  Types?: ResComponentType[];
 };
 
 const isUuid = (str: string) =>
@@ -176,7 +177,7 @@ const generateFunctions = () => {
       {} as ResComponent["Data"]
     );
     const simpleComponent: ResComponent = {
-      Type: convertComponentType(component.Type),
+      Type: convertComponentType(component.Type as string),
       Data: ComponentData,
     };
     return simpleComponent;
@@ -192,7 +193,8 @@ const generateFunctions = () => {
 };
 
 const res2flat = (
-  resObject: ResObject
+  resObject: ResObject,
+  types: ResComponentType[]
 ): { data: ResObject; _altNameIdMap: Map<string, ResID> } => {
   const {
     preSetId,
@@ -218,11 +220,16 @@ const res2flat = (
     preSetId(slot.OrderOffset.ID, `ID:${slot.Name.Data}:Tag`);
     preSetId(slot.Components.ID, `ID:${slot.Name.Data}:Tag`);
 
+    console.log(resObject);
+
     slot.Components.Data.forEach((component) => {
+      if (typeof component.Type === "number") {
+        component.Type = types[component.Type];
+      }
       preSetId(
         component.Data.ID,
         `ID:${slot.Name.Data}:Components:${convertComponentType(
-          component.Type
+          component.Type as string
         )}`
       );
 
@@ -236,7 +243,7 @@ const res2flat = (
           preSetId(
             id,
             `ID:${slot.Name.Data}:Components:${convertComponentType(
-              component.Type
+              component.Type as string
             )}:${key}`
           );
 
@@ -248,7 +255,7 @@ const res2flat = (
                   value,
                   path[path.length - 1] === "ID"
                     ? `ID:${slot.Name.Data}:Components:${convertComponentType(
-                        component.Type
+                        component.Type as string
                       )}:${key}.${path.join(".")}`
                     : undefined
                 );
@@ -261,16 +268,22 @@ const res2flat = (
   });
 
   resObject.Assets.forEach((component) => {
+    if (typeof component.Type === "number") {
+      component.Type = types[component.Type];
+    }
     preSetId(
       component.Data.ID,
-      `ID:Assets:${convertComponentType(component.Type)}`
+      `ID:Assets:${convertComponentType(component.Type as string)}`
     );
     Object.keys(component.Data).forEach((key) => {
       const field = component.Data[key];
       const id = typeof field === "object" ? field.ID : field;
       const data = typeof field === "object" ? field.Data : undefined;
 
-      preSetId(id, `ID:Assets:${convertComponentType(component.Type)}:${key}`);
+      preSetId(
+        id,
+        `ID:Assets:${convertComponentType(component.Type as string)}:${key}`
+      );
 
       if (data) {
         preSetId(data);
@@ -282,7 +295,7 @@ const res2flat = (
     resObjectObject,
     (slot, children) => {
       const simpleComponents = slot.Components.Data.filter(
-        (comp) => !["FrooxEngine.InventoryItem"].includes(comp.Type)
+        (comp) => !["FrooxEngine.InventoryItem"].includes(comp.Type as string)
       ).map(toSimpleComponent);
       const simpleSlot: ResSlot = {
         Name: toSimpleField(slot.Name.ID, slot.Name.Data),
@@ -333,5 +346,7 @@ const res2flat = (
   };
 };
 
-export const res2yaml = (resObject: ResObject): string =>
-  stringify(res2flat(resObject).data.Object);
+export const res2yaml = (
+  resObject: ResObject,
+  types: ResComponentType[]
+): string => stringify(res2flat(resObject, types).data.Object);
