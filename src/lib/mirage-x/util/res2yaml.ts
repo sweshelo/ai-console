@@ -194,7 +194,7 @@ const generateFunctions = () => {
 
 const res2flat = (
   resObject: ResObject,
-  types: ResComponentType[]
+  types?: ResComponentType[]
 ): { data: ResObject; _altNameIdMap: Map<string, ResID> } => {
   const {
     preSetId,
@@ -220,10 +220,8 @@ const res2flat = (
     preSetId(slot.OrderOffset.ID, `ID:${slot.Name.Data}:Tag`);
     preSetId(slot.Components.ID, `ID:${slot.Name.Data}:Tag`);
 
-    console.log(resObject);
-
     slot.Components.Data.forEach((component) => {
-      if (typeof component.Type === "number") {
+      if (types && typeof component.Type === "number") {
         component.Type = types[component.Type];
       }
       preSetId(
@@ -268,7 +266,7 @@ const res2flat = (
   });
 
   resObject.Assets.forEach((component) => {
-    if (typeof component.Type === "number") {
+    if (types && typeof component.Type === "number") {
       component.Type = types[component.Type];
     }
     preSetId(
@@ -348,5 +346,5 @@ const res2flat = (
 
 export const res2yaml = (
   resObject: ResObject,
-  types: ResComponentType[]
+  types?: ResComponentType[]
 ): string => stringify(res2flat(resObject, types).data.Object);
