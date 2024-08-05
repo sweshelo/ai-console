@@ -87,7 +87,7 @@ Children:
     Components:
       ID: "?"
       Data:
-        - Type: FrooxEngine.DynamicReferenceVariable`1[FrooxEngine.Slot]
+        - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
           Data:
             ID: "?"
             persistent-ID: "?"
@@ -196,7 +196,7 @@ Children:
         Components:
           ID: "?"
           Data:
-            - Type: FrooxEngine.DynamicReferenceVariable`1[FrooxEngine.Slot]
+            - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -215,7 +215,7 @@ Children:
                 OverrideOnLink:
                   ID: "?"
                   Data: false
-            - Type: FrooxEngine.DynamicReferenceVariable`1[FrooxEngine.Slot]
+            - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -234,7 +234,7 @@ Children:
                 OverrideOnLink:
                   ID: "?"
                   Data: false
-            - Type: FrooxEngine.DynamicReferenceVariable`1[FrooxEngine.Slot]
+            - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -260,7 +260,7 @@ Children:
         Active:
           ID: "?"
           Data: true
-        ID: ID:DV/Props:0
+        ID: "?"
         Persistent-Id: "?"
         Position:
           ID: "?"
@@ -290,7 +290,7 @@ Children:
         Components:
           ID: "?"
           Data:
-            - Type: FrooxEngine.DynamicField`1[System.String]
+            - Type: FrooxEngine.DynamicField<string>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -309,7 +309,7 @@ Children:
                 OverrideOnLink:
                   ID: "?"
                   Data: false
-            - Type: FrooxEngine.DynamicField`1[System.String]
+            - Type: FrooxEngine.DynamicField<string>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -328,7 +328,7 @@ Children:
                 OverrideOnLink:
                   ID: "?"
                   Data: false
-            - Type: FrooxEngine.DynamicField`1[Elements.Core.colorX]
+            - Type: FrooxEngine.DynamicField<colorX>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -347,7 +347,7 @@ Children:
                 OverrideOnLink:
                   ID: "?"
                   Data: false
-            - Type: FrooxEngine.DynamicField`1[Elements.Core.colorX]
+            - Type: FrooxEngine.DynamicField<colorX>
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -366,25 +366,6 @@ Children:
                 OverrideOnLink:
                   ID: "?"
                   Data: false
-            - Type: FrooxEngine.GizmoLink
-              Data:
-                ID: "?"
-                persistent-ID: "?"
-                UpdateOrder:
-                  ID: "?"
-                  Data: 0
-                Enabled:
-                  ID: "?"
-                  Data: true
-                _worker:
-                  ID: "?"
-                  Data: ID:DV/Props:0
-                _gizmo:
-                  ID: "?"
-                  Data: null
-                _type:
-                  ID: "?"
-                  Data: FrooxEngine.SlotGizmo
         Children: []
       - Name:
           ID: "?"
@@ -543,7 +524,7 @@ Children:
                   Data:
                     - 166.66666666666666
                     - 166.66666666666666
-            - Type: FrooxEngine.ButtonClipboardCopyText
+            - Type: FrooxEngine.UIX.TextField
               Data:
                 ID: "?"
                 persistent-ID: "?"
@@ -552,10 +533,14 @@ Children:
                   Data: 0
                 Enabled:
                   ID: "?"
-                  Data: true
-                Source:
+                  Data: false
+                Editor:
                   ID: "?"
-                  Data: ID:StyledText:Components:FrooxEngine.UIX.Text:Content:0
+                  Data: ID:Message:Components:FrooxEngine.TextEditor:0
+                __text-ID: "?"
+                EditingStarted-ID: "?"
+                EditingChanged-ID: "?"
+                EditingFinished-ID: "?"
             - Type: FrooxEngine.UIX.OverlappingLayout
               Data:
                 ID: "?"
@@ -590,6 +575,82 @@ Children:
                 ForceExpandHeight:
                   ID: "?"
                   Data: true
+            - Type: FrooxEngine.GizmoLink
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                _worker:
+                  ID: "?"
+                  Data: ID:Message:0
+                _gizmo:
+                  ID: "?"
+                  Data: null
+                _type:
+                  ID: "?"
+                  Data: 94000
+            - Type: FrooxEngine.TextEditor
+              Data:
+                ID: ID:Message:Components:FrooxEngine.TextEditor:0
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                Text:
+                  ID: "?"
+                  Data: ID:StyledText:Components:FrooxEngine.UIX.Text:0
+                Undo:
+                  ID: "?"
+                  Data: false
+                UndoDescription:
+                  ID: "?"
+                  Data: null
+                FinishHandling:
+                  ID: "?"
+                  Data: LeaveAsIs
+                AutoCaretColorField:
+                  ID: "?"
+                  Data: true
+                CaretColorField:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 0
+                    - 0
+                    - 333.3333333333333
+                    - sRGB
+                SelectionColorField:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 166.66666666666666
+                    - 66.66666666666667
+                    - 166.66666666666666
+                    - sRGB
+                EditingStarted:
+                  ID: "?"
+                  Data:
+                    Target: null
+                EditingChanged:
+                  ID: "?"
+                  Data:
+                    Target: null
+                EditingFinished:
+                  ID: "?"
+                  Data:
+                    Target: null
+                SubmitPressed:
+                  ID: "?"
+                  Data:
+                    Target: null
         Children:
           - Name:
               ID: "?"
@@ -671,7 +732,7 @@ Children:
                       Data:
                         - 133.33333333333334
                         - 133.33333333333334
-                        - 300
+                        - 133.33333333333334
                         - 333.3333333333333
                         - sRGBAlpha
                 - Type: FrooxEngine.UIX.RectTransform
@@ -961,7 +1022,7 @@ Children:
                   Data:
                     - Type: FrooxEngine.UIX.Text
                       Data:
-                        ID: "?"
+                        ID: ID:StyledText:Components:FrooxEngine.UIX.Text:0
                         persistent-ID: "?"
                         UpdateOrder:
                           ID: "?"
@@ -970,7 +1031,7 @@ Children:
                           ID: "?"
                           Data: true
                         Font:
-                          ID: ID:StyledText:Components:FrooxEngine.UIX.Text:Font:0
+                          ID: "?"
                           Data: ID:Assets:FrooxEngine.FontChain:ID:3
                         Content:
                           ID: ID:StyledText:Components:FrooxEngine.UIX.Text:Content:0
@@ -996,15 +1057,15 @@ Children:
                         Color:
                           ID: ID:StyledText:Components:FrooxEngine.UIX.Text:Color:0
                           Data:
-                            - 0
-                            - 0
-                            - 0
+                            - 333.3333333333333
+                            - 333.3333333333333
+                            - 333.3333333333333
                             - 333.3333333333333
                             - sRGBAlpha
                         Materials:
                           ID: "?"
                           Data:
-                            - ID: ID:StyledText:Components:FrooxEngine.UIX.Text:Materials.0.ID:0
+                            - ID: "?"
                               Data: ID:Assets:FrooxEngine.UI_TextUnlitMaterial:ID:4
                         LineHeight:
                           ID: "?"
@@ -1086,9 +1147,7 @@ Children:
                           Data:
                             - 166.66666666666666
                             - 166.66666666666666
-                    - Type: FrooxEngine.DynamicReferenceVariableDriver`1[FrooxEngine.IAssetProvider`1],
-                        FrooxEngine, Version=2024.5.31.202, Culture=neutral,
-                        PublicKeyToken=null]]
+                    - Type: FrooxEngine.DynamicReferenceVariableDriver<FrooxEngine.IAssetProvider<FrooxEngine.Material>>
                       Data:
                         ID: "?"
                         persistent-ID: "?"
@@ -1103,13 +1162,11 @@ Children:
                           Data: ""
                         Target:
                           ID: "?"
-                          Data: ID:StyledText:Components:FrooxEngine.UIX.Text:Materials.0.ID:0
+                          Data: "?"
                         DefaultTarget:
                           ID: "?"
-                          Data: ID:Assets:FrooxEngine.UI_TextUnlitMaterial:ID:4
-                    - Type: FrooxEngine.DynamicReferenceVariableDriver`1[FrooxEngine.IAssetProvider`1],
-                        FrooxEngine, Version=2024.5.31.202, Culture=neutral,
-                        PublicKeyToken=null]]
+                          Data: "?"
+                    - Type: FrooxEngine.DynamicReferenceVariableDriver<FrooxEngine.IAssetProvider<FrooxEngine.FontSet>>
                       Data:
                         ID: "?"
                         persistent-ID: "?"
@@ -1124,8 +1181,8 @@ Children:
                           Data: ""
                         Target:
                           ID: "?"
-                          Data: ID:StyledText:Components:FrooxEngine.UIX.Text:Font:0
+                          Data: "?"
                         DefaultTarget:
                           ID: "?"
-                          Data: ID:Assets:FrooxEngine.FontChain:ID:3
+                          Data: "?"
                 Children: []

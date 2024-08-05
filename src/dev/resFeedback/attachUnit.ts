@@ -63,6 +63,8 @@ const PackageParentObject = getObject(ResFeedbackOriginal.Object)
   .Children.find((o: any) => o.Name.Data === appCode)
   .Children.find((o: any) => o.Name.Data === "Package");
 
+const typesArray = ResFeedbackOriginal.Types;
+
 const filteredTargets = targets.map(({ packageName, units }) => ({
   packageName,
   units: units.filter(
@@ -87,7 +89,7 @@ filteredTargets.forEach(({ packageName, units }) => {
       };
 
       if (unitSlot) {
-        const unitObjectYaml = res2yaml(unitObject);
+        const unitObjectYaml = res2yaml(unitObject, typesArray);
         const prevUnitObjectYaml = readFileSync({
           path: path.resolve(
             __dirname,

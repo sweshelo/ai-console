@@ -1,0 +1,678 @@
+Name:
+  ID: "?"
+  Data: AiConsole/Image
+Active:
+  ID: "?"
+  Data: true
+ID: "?"
+Persistent-Id: "?"
+Position:
+  ID: "?"
+  Data:
+    - 0
+    - 0
+    - 0
+Rotation:
+  ID: "?"
+  Data:
+    - 0
+    - 0
+    - 0
+    - 1
+Scale:
+  ID: "?"
+  Data:
+    - 1
+    - 1
+    - 1
+Tag:
+  ID: "?"
+  Data: ""
+OrderOffset:
+  ID: "?"
+  Data: 0
+Components:
+  ID: "?"
+  Data:
+    - Type: FrooxEngine.DynamicVariableSpace
+      Data:
+        ID: "?"
+        persistent-ID: "?"
+        UpdateOrder:
+          ID: "?"
+          Data: 0
+        Enabled:
+          ID: "?"
+          Data: true
+        SpaceName:
+          ID: "?"
+          Data: ""
+        OnlyDirectBinding:
+          ID: "?"
+          Data: false
+Children:
+  - Name:
+      ID: "?"
+      Data: DV
+    Active:
+      ID: "?"
+      Data: true
+    ID: "?"
+    Persistent-Id: "?"
+    Position:
+      ID: "?"
+      Data:
+        - 0
+        - 0
+        - 0
+    Rotation:
+      ID: "?"
+      Data:
+        - 0
+        - 0
+        - 0
+        - 111111
+    Scale:
+      ID: "?"
+      Data:
+        - 111111
+        - 111111
+        - 111111
+    Tag:
+      ID: "?"
+      Data: ""
+    OrderOffset:
+      ID: "?"
+      Data: 0
+    Components:
+      ID: "?"
+      Data:
+        - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
+          Data:
+            ID: "?"
+            persistent-ID: "?"
+            UpdateOrder:
+              ID: "?"
+              Data: 0
+            Enabled:
+              ID: "?"
+              Data: true
+            VariableName:
+              ID: "?"
+              Data: Static.Ref
+            Reference:
+              ID: "?"
+              Data: ID:Ref:0
+            OverrideOnLink:
+              ID: "?"
+              Data: false
+    Children: []
+  - Name:
+      ID: "?"
+      Data: Ref
+    Active:
+      ID: "?"
+      Data: true
+    ID: ID:Ref:0
+    Persistent-Id: "?"
+    Position:
+      ID: "?"
+      Data:
+        - 0
+        - 0
+        - 0
+    Rotation:
+      ID: "?"
+      Data:
+        - 0
+        - 0
+        - 0
+        - 111111
+    Scale:
+      ID: "?"
+      Data:
+        - 111111
+        - 111111
+        - 111111
+    Tag:
+      ID: "?"
+      Data: ""
+    OrderOffset:
+      ID: "?"
+      Data: 0
+    Components:
+      ID: "?"
+      Data:
+        - Type: FrooxEngine.DynamicVariableSpace
+          Data:
+            ID: "?"
+            persistent-ID: "?"
+            UpdateOrder:
+              ID: "?"
+              Data: 0
+            Enabled:
+              ID: "?"
+              Data: true
+            SpaceName:
+              ID: "?"
+              Data: ""
+            OnlyDirectBinding:
+              ID: "?"
+              Data: false
+    Children:
+      - Name:
+          ID: "?"
+          Data: DV/Static
+        Active:
+          ID: "?"
+          Data: true
+        ID: "?"
+        Persistent-Id: "?"
+        Position:
+          ID: "?"
+          Data:
+            - 0
+            - 0
+            - 0
+        Rotation:
+          ID: "?"
+          Data:
+            - 0
+            - 0
+            - 0
+            - 111111
+        Scale:
+          ID: "?"
+          Data:
+            - 111111
+            - 111111
+            - 111111
+        Tag:
+          ID: "?"
+          Data: ""
+        OrderOffset:
+          ID: "?"
+          Data: 0
+        Components:
+          ID: "?"
+          Data:
+            - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                VariableName:
+                  ID: "?"
+                  Data: Static.Root
+                Reference:
+                  ID: "?"
+                  Data: ID:Ref:0
+                OverrideOnLink:
+                  ID: "?"
+                  Data: false
+            - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                VariableName:
+                  ID: "?"
+                  Data: Static.Main
+                Reference:
+                  ID: "?"
+                  Data: ID:StyledRawImage:0
+                OverrideOnLink:
+                  ID: "?"
+                  Data: false
+            - Type: FrooxEngine.DynamicReferenceVariable<FrooxEngine.Slot>
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                VariableName:
+                  ID: "?"
+                  Data: Static.ChildrenParent
+                Reference:
+                  ID: "?"
+                  Data: ID:StyledRawImage:0
+                OverrideOnLink:
+                  ID: "?"
+                  Data: false
+        Children: []
+      - Name:
+          ID: "?"
+          Data: DV/Props
+        Active:
+          ID: "?"
+          Data: true
+        ID: "?"
+        Persistent-Id: "?"
+        Position:
+          ID: "?"
+          Data:
+            - 0
+            - 0
+            - 0
+        Rotation:
+          ID: "?"
+          Data:
+            - 0
+            - 0
+            - 0
+            - 111111
+        Scale:
+          ID: "?"
+          Data:
+            - 111111
+            - 111111
+            - 111111
+        Tag:
+          ID: "?"
+          Data: ""
+        OrderOffset:
+          ID: "?"
+          Data: 0
+        Components:
+          ID: "?"
+          Data:
+            - Type: FrooxEngine.DynamicField<Uri>
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                VariableName:
+                  ID: "?"
+                  Data: Props.uri
+                TargetField:
+                  ID: "?"
+                  Data: ID:StyledRawImage:Components:FrooxEngine.StaticTexture2D:URL:0
+                OverrideOnLink:
+                  ID: "?"
+                  Data: false
+        Children: []
+      - Name:
+          ID: "?"
+          Data: StyledRawImage
+        Active:
+          ID: "?"
+          Data: true
+        ID: ID:StyledRawImage:0
+        Persistent-Id: "?"
+        Position:
+          ID: "?"
+          Data:
+            - 0
+            - 0
+            - 0
+        Rotation:
+          ID: "?"
+          Data:
+            - 0
+            - 0
+            - 0
+            - 111111
+        Scale:
+          ID: "?"
+          Data:
+            - 111
+            - 111
+            - 111
+        Tag:
+          ID: "?"
+          Data: null
+        OrderOffset:
+          ID: "?"
+          Data: 0
+        Components:
+          ID: "?"
+          Data:
+            - Type: FrooxEngine.UIX.RectTransform
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                AnchorMin:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 0
+                AnchorMax:
+                  ID: "?"
+                  Data:
+                    - 333.3333333333333
+                    - 333.3333333333333
+                OffsetMin:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 0
+                OffsetMax:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 0
+                Pivot:
+                  ID: "?"
+                  Data:
+                    - 166.66666666666666
+                    - 166.66666666666666
+            - Type: FrooxEngine.StaticTexture2D
+              Data:
+                ID: ID:StyledRawImage:Components:FrooxEngine.StaticTexture2D:0
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                URL:
+                  ID: ID:StyledRawImage:Components:FrooxEngine.StaticTexture2D:URL:0
+                  Data: null
+                FilterMode:
+                  ID: "?"
+                  Data: null
+                AnisotropicLevel:
+                  ID: "?"
+                  Data: null
+                Uncompressed:
+                  ID: "?"
+                  Data: false
+                DirectLoad:
+                  ID: "?"
+                  Data: true
+                ForceExactVariant:
+                  ID: "?"
+                  Data: false
+                PreferredFormat:
+                  ID: "?"
+                  Data: null
+                PreferredProfile:
+                  ID: "?"
+                  Data: sRGB
+                MipMapBias:
+                  ID: "?"
+                  Data: 0
+                IsNormalMap:
+                  ID: "?"
+                  Data: false
+                WrapModeU:
+                  ID: "?"
+                  Data: Repeat
+                WrapModeV:
+                  ID: "?"
+                  Data: Repeat
+                PowerOfTwoAlignThreshold:
+                  ID: "?"
+                  Data: 16.666666666666668
+                CrunchCompressed:
+                  ID: "?"
+                  Data: true
+                MinSize:
+                  ID: "?"
+                  Data: null
+                MaxSize:
+                  ID: "?"
+                  Data: null
+                MipMaps:
+                  ID: "?"
+                  Data: true
+                KeepOriginalMipMaps:
+                  ID: "?"
+                  Data: false
+                MipMapFilter:
+                  ID: "?"
+                  Data: Box
+                Readable:
+                  ID: "?"
+                  Data: false
+            - Type: FrooxEngine.UIX.Button
+              Data:
+                ID: ID:StyledRawImage:Components:FrooxEngine.UIX.Button:0
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                BaseColor:
+                  ID: "?"
+                  Data:
+                    - 333.3333333333333
+                    - 333.3333333333333
+                    - 333.3333333333333
+                    - 333.3333333333333
+                    - sRGB
+                ColorDrivers:
+                  ID: "?"
+                  Data: []
+                __legacy_NormalColor-ID: "?"
+                __legacy_HighlightColor-ID: "?"
+                __legacy_PressColor-ID: "?"
+                __legacy_DisabledColor-ID: "?"
+                __legacy_TintColorMode-ID: "?"
+                __legacy_ColorDrive-ID: "?"
+                IsPressed:
+                  ID: "?"
+                  Data: false
+                IsHovering:
+                  ID: "?"
+                  Data: false
+                HoverVibrate:
+                  ID: "?"
+                  Data: Short
+                PressVibrate:
+                  ID: "?"
+                  Data: Medium
+                ClearFocusOnPress:
+                  ID: "?"
+                  Data: true
+                PassThroughHorizontalMovement:
+                  ID: "?"
+                  Data: true
+                PassThroughVerticalMovement:
+                  ID: "?"
+                  Data: true
+                RequireLockInToPress:
+                  ID: "?"
+                  Data: false
+                RequireInitialPress:
+                  ID: "?"
+                  Data: true
+                PressPoint:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 0
+                SendSlotEvents:
+                  ID: "?"
+                  Data: true
+                Pressed:
+                  ID: "?"
+                  Data:
+                    Target: ID:StyledRawImage:Components:FrooxEngine.RefEditor:0
+                    Method: OpenWorkerInspectorButton
+                Pressing:
+                  ID: "?"
+                  Data:
+                    Target: null
+                Released:
+                  ID: "?"
+                  Data:
+                    Target: null
+                HoverEnter:
+                  ID: "?"
+                  Data:
+                    Target: null
+                HoverStay:
+                  ID: "?"
+                  Data:
+                    Target: null
+                HoverLeave:
+                  ID: "?"
+                  Data:
+                    Target: null
+            - Type: FrooxEngine.UIX.Image
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                Sprite:
+                  ID: "?"
+                  Data: ID:StyledRawImage:Components:FrooxEngine.SpriteProvider:0
+                Material:
+                  ID: "?"
+                  Data: null
+                PreserveAspect:
+                  ID: "?"
+                  Data: true
+                NineSliceSizing:
+                  ID: "?"
+                  Data: TextureSize
+                FlipHorizontally:
+                  ID: "?"
+                  Data: false
+                FlipVertically:
+                  ID: "?"
+                  Data: false
+                InteractionTarget:
+                  ID: "?"
+                  Data: true
+                FillRect:
+                  ID: "?"
+                  Data:
+                    X: 0
+                    Y: 0
+                    Width: 333.3333333333333
+                    Height: 333.3333333333333
+                __legacyZWrite-ID: "?"
+                Tint:
+                  ID: "?"
+                  Data:
+                    - 333.3333333333333
+                    - 333.3333333333333
+                    - 333.3333333333333
+                    - 333.3333333333333
+                    - sRGB
+            - Type: FrooxEngine.SpriteProvider
+              Data:
+                ID: ID:StyledRawImage:Components:FrooxEngine.SpriteProvider:0
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                HighPriorityIntegration:
+                  ID: "?"
+                  Data: false
+                Texture:
+                  ID: "?"
+                  Data: ID:StyledRawImage:Components:FrooxEngine.StaticTexture2D:0
+                Rect:
+                  ID: "?"
+                  Data:
+                    X: 0
+                    Y: 0
+                    Width: 333.3333333333333
+                    Height: 333.3333333333333
+                Borders:
+                  ID: "?"
+                  Data:
+                    - 0
+                    - 0
+                    - 0
+                    - 0
+                Scale:
+                  ID: "?"
+                  Data: 333.3333333333333
+                FixedSize:
+                  ID: "?"
+                  Data: 2666.6666666666665
+            - Type: FrooxEngine.ReferenceProxy
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                Reference:
+                  ID: ID:StyledRawImage:Components:FrooxEngine.ReferenceProxy:Reference:0
+                  Data: ID:StyledRawImage:Components:FrooxEngine.StaticTexture2D:0
+                SpawnInstanceOnTrigger:
+                  ID: "?"
+                  Data: false
+            - Type: FrooxEngine.RefEditor
+              Data:
+                ID: ID:StyledRawImage:Components:FrooxEngine.RefEditor:0
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                _targetRef:
+                  ID: "?"
+                  Data: ID:StyledRawImage:Components:FrooxEngine.ReferenceProxy:Reference:0
+                _textDrive:
+                  ID: "?"
+                  Data: null
+                _button:
+                  ID: "?"
+                  Data: ID:StyledRawImage:Components:FrooxEngine.UIX.Button:0
+            - Type: FrooxEngine.GizmoLink
+              Data:
+                ID: "?"
+                persistent-ID: "?"
+                UpdateOrder:
+                  ID: "?"
+                  Data: 0
+                Enabled:
+                  ID: "?"
+                  Data: true
+                _worker:
+                  ID: "?"
+                  Data: ID:StyledRawImage:0
+                _gizmo:
+                  ID: "?"
+                  Data: null
+                _type:
+                  ID: "?"
+                  Data: 94000
+        Children: []

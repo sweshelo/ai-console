@@ -14,7 +14,7 @@ import {
   StyledScrollArea,
   StyledText,
 } from "../../../unit/package/StyledUix/main";
-import { MessageComponent } from "../../../unit/package/AiConsole/main";
+import { MessageComponent, Image } from "../../../unit/package/AiConsole/main";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
   <StyledMask>
@@ -57,7 +57,7 @@ const MessageList = ({ messages }: { messages: Message[] }) => (
                   paddingTop={10}
                 >
                   <LayoutElement minHeight={500}>
-                    <StyledRawImage url={m.content} preserveAspect={true} />
+                    <Image uri={m.content} />
                   </LayoutElement>
                 </OverlappingLayout>
               </OverlappingLayout>

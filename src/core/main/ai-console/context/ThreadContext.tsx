@@ -88,67 +88,86 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
       });
     }
 
-    const result = await callGenerativeAIAPI({
-      model: llmModel[modelIndex] as Model,
-      thread: _thread,
-    });
+    try {
+      const result = await callGenerativeAIAPI({
+        model: llmModel[modelIndex] as Model,
+        thread: _thread,
+      });
 
-    if (result instanceof OpenAIStream || result instanceof MessageStream) {
-      if (result) {
-        setThread((prevThread) => {
-          return {
-            messages: [
-              ...prevThread.messages,
-              {
-                role: "assistant",
-                content: "",
-                type: "chat",
-              },
-            ],
-          } as Thread;
-        });
+      if (result instanceof OpenAIStream || result instanceof MessageStream) {
+        if (result) {
+          setThread((prevThread) => {
+            return {
+              messages: [
+                ...prevThread.messages,
+                {
+                  role: "assistant",
+                  content: "",
+                  type: "chat",
+                },
+              ],
+            } as Thread;
+          });
 
-        switch (llmModel[modelIndex].vendor) {
-          case "OpenAI":
-            for await (const chunk of result) {
-              updateLastMessageInThread(
-                (chunk as ChatCompletionChunk).choices[0]?.delta?.content ?? ""
+          switch (llmModel[modelIndex].vendor) {
+            case "OpenAI":
+              for await (const chunk of result) {
+                updateLastMessageInThread(
+                  (chunk as ChatCompletionChunk).choices[0]?.delta?.content ??
+                    ""
+                );
+              }
+              setGenerating(false);
+              break;
+            case "Anthropic":
+              (result as MessageStream).on("text", (text) =>
+                updateLastMessageInThread(text)
               );
-            }
-            setGenerating(false);
-            break;
-          case "Anthropic":
-            (result as MessageStream).on("text", (text) =>
-              updateLastMessageInThread(text)
-            );
-            (result as MessageStream).on("end", () => setGenerating(false));
-            break;
+              (result as MessageStream).on("end", () => setGenerating(false));
+              break;
+          }
         }
       }
-    }
 
-    if (isImagesResponse(result)) {
-      if (result) {
-        setThread((prevThread) => {
-          return {
-            messages: [
-              ...prevThread.messages,
-              {
-                role: "assistant",
-                content: result.data[0].revised_prompt,
-                type: "chat",
-              },
-              {
-                role: "system",
-                content: result.data[0].url,
-                type: "image",
-              },
-            ] as Message[],
-          };
-        });
+      if (isImagesResponse(result)) {
+        if (result) {
+          setThread((prevThread) => {
+            return {
+              messages: [
+                ...prevThread.messages,
+                {
+                  role: "assistant",
+                  content: result.data[0].revised_prompt,
+                  type: "chat",
+                },
+                {
+                  role: "system",
+                  content: result.data[0].url,
+                  type: "image",
+                },
+              ] as Message[],
+            };
+          });
+        }
       }
+    } catch (error) {
+      setThread((prevThread) => {
+        return {
+          messages: [
+            ...prevThread.messages,
+            {
+              role: "system",
+              content: `<color=red>[ERROR]</color> Something went wrong. Please contact Sweshelo.\n----------\n${
+                (error as Error).message
+              }`,
+              type: "chat",
+            },
+          ],
+        } as Thread;
+      });
+    } finally {
+      setGenerating(false);
     }
-    setGenerating(false);
   };
 
   const updateLastMessageInThread = (content: string) => {
