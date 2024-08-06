@@ -1,4 +1,4 @@
-import { Model } from "../types";
+import { Model, Resolution } from "../types";
 
 export const llmModel: Model[] = [
   {
@@ -42,5 +42,28 @@ export const llmModel: Model[] = [
     shortName: "Dall-E 3",
     description: "Image generation",
     type: "image",
+  },
+];
+
+export const AvailResolutions: Resolution[] = [
+  {
+    value: "256x256",
+    model: ["dall-e-2"],
+  },
+  {
+    value: "512x512",
+    model: ["dall-e-2"],
+  },
+  {
+    value: "1024x1024",
+    model: ["dall-e-2", "dall-e-3"],
+  },
+  {
+    value: "1792x1024",
+    model: ["dall-e-3"],
+  },
+  {
+    value: "1024x1792",
+    model: ["dall-e-3"],
   },
 ];

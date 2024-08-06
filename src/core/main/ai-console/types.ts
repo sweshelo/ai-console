@@ -23,3 +23,8 @@ export type MessageForAnthropicAPI = Omit<Message, "role" | "ai" | "author"> & {
 export type Thread = {
   messages: Message[];
 };
+
+export type Resolution = {
+  value: string;
+  model: Model["name"][];
+};

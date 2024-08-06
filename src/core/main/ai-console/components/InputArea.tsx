@@ -15,13 +15,7 @@ const InputArea = () => {
   const { prompt, setPrompt, callAiAPI, isGenerating } = useThread();
 
   return (
-    <HorizontalLayout
-      paddingBottom={10}
-      paddingLeft={10}
-      paddingRight={10}
-      paddingTop={10}
-      spacing={10}
-    >
+    <HorizontalLayout paddingLeft={10} paddingRight={10} spacing={10}>
       <LayoutElement flexibleWidth={1}>
         <StyledTextField
           onChange={(env, _text) => setPrompt(_text)}
