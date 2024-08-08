@@ -1,6 +1,10 @@
 # AI Console
 Resoniteで複数のAIサービスを統合して利用するためのコンソール
 
+## Download
+- [ResonitePackage](https://github.com/sweshelo/ai-console/releases/download/1.0.0/ai-console.resonitepackage) (Direct Download)  
+MirageXで開発されているため、Resonite内にスポーンされる際 AI Consoleは常に最新の状態に更新されます。
+
 ## Todo
 ### AI Service
 - [x] OpenAI GPT
