@@ -6,6 +6,7 @@ import { MessageStream } from "@anthropic-ai/sdk/lib/MessageStream";
 import { ChatCompletionChunk, ImagesResponse } from "openai/resources";
 import { Stream as OpenAIStream } from "openai/streaming";
 import { FunctionEnv } from "../../../../lib/mirage-x/common/interactionEvent";
+import { getContacts } from "../resonite-api/client";
 
 interface ThreadContextProps {
   prompt: string;
@@ -23,6 +24,9 @@ interface ThreadContextProps {
   setResolutionIndex: (index: number) => void;
   error: string;
   setError: (error: string) => void;
+  contacts: Array<string>;
+  setContacts: (contacts: Array<string>) => void;
+  getResoniteContacts: () => Promise<void>;
 }
 
 const ThreadContext = createContext<ThreadContextProps | undefined>(undefined);
@@ -55,6 +59,7 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
   const [resolutionIndex, setResolutionIndex] = useState(0);
   const [temperature, setTemperature] = useState(1);
   const [error, setError] = useState("");
+  const [contacts, setContacts] = useState<Array<string>>([]);
 
   const callAiAPI = async (env: FunctionEnv) => {
     if (prompt.trim().length === 0) return;
@@ -96,9 +101,23 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
       });
     }
 
-    console.log(env);
-
     try {
+      if (!env.userId)
+        throw new Error("You must be logged in to use this service.");
+
+      if (!contacts || contacts.length === 0) {
+        await getResoniteContacts();
+        throw new Error(
+          "Initial authentication process was performed. Please execute again."
+        );
+      }
+
+      if (
+        !contacts.find((c) => c === env.userId) &&
+        llmModel[modelIndex].tier !== "low"
+      )
+        throw new Error("Sorry, this model is only for author friends.");
+
       const result = await callGenerativeAIAPI({
         model: llmModel[modelIndex] as Model,
         thread: _thread,
@@ -184,6 +203,15 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
     });
   };
 
+  const getResoniteContacts = async () => {
+    try {
+      const _contacts = await getContacts();
+      setContacts(_contacts);
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
+
   return (
     <ThreadContext.Provider
       value={{
@@ -202,6 +230,9 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
         setResolutionIndex,
         error,
         setError,
+        contacts,
+        setContacts,
+        getResoniteContacts,
       }}
     >
       {children}

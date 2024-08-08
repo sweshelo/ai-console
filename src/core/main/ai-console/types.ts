@@ -4,6 +4,7 @@ export type Model = {
   type?: "chat" | "image";
   shortName: string;
   description: string;
+  tier: "low" | "medium" | "high";
 };
 
 export type Message = {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ThreadProvider, useThread } from "./context/ThreadContext";
 import { Color, Material, Sprite, StyledSpace } from "./style";
 import {
@@ -22,7 +22,7 @@ import ResolutionSelector from "./components/ResolutionSelector";
 import { ErrorDialog } from "./components/ErrorDialog";
 
 export const Main = () => {
-  const { thread } = useThread();
+  const { thread, getResoniteContacts } = useThread();
   const [isOpenConfig, setOpenConfig] = useState(false);
 
   const ToggleConfigurationButton = React.memo(() => (
@@ -42,6 +42,10 @@ export const Main = () => {
     </OverlappingLayout>
   ));
 
+  useEffect(() => {
+    getResoniteContacts();
+  }, []);
+
   return (
     <StyledSpace>
       <Canvas size={[1000, 1500]}>
@@ -57,14 +61,14 @@ export const Main = () => {
           paddingTop={50}
           spacing={20}
         >
-          <LayoutElement preferredHeight={40} minHeight={40}>
+          <LayoutElement preferredHeight={80} minHeight={80}>
             <Header />
           </LayoutElement>
           <OverlappingLayout>
             <VerticalLayout spacing={20}>
               {!isOpenConfig ? (
                 <>
-                  <LayoutElement preferredHeight={80}>
+                  <LayoutElement preferredHeight={100}>
                     <ModelSelector />
                   </LayoutElement>
                   <LayoutElement minHeight={50}>

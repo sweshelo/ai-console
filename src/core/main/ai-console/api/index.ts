@@ -10,6 +10,7 @@ import {
 import Anthropic from "@anthropic-ai/sdk";
 import { FunctionEnv } from "../../../../lib/mirage-x/common/interactionEvent";
 import { ImageGenerateParams } from "openai/resources";
+import { useThread } from "../context/ThreadContext";
 
 type callGenerativeAIAPIProps = {
   model: Model;
@@ -19,9 +20,6 @@ type callGenerativeAIAPIProps = {
 };
 
 export const callGenerativeAIAPI = async (props: callGenerativeAIAPIProps) => {
-  if (!props.user)
-    throw new Error("You must be logged in to use this service.");
-
   switch (props.model.vendor) {
     case "OpenAI":
       return props.model.type === "image"
