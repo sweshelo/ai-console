@@ -5,12 +5,18 @@ import {
   Thread,
   Model,
   MessageForAnthropicAPI,
+  Resolution,
 } from "../types";
 import Anthropic from "@anthropic-ai/sdk";
+import { FunctionEnv } from "../../../../lib/mirage-x/common/interactionEvent";
+import { ImageGenerateParams } from "openai/resources";
+import { useThread } from "../context/ThreadContext";
 
 type callGenerativeAIAPIProps = {
   model: Model;
   thread: Thread;
+  user: FunctionEnv["userId"];
+  resolution?: Resolution;
 };
 
 export const callGenerativeAIAPI = async (props: callGenerativeAIAPIProps) => {
@@ -32,6 +38,7 @@ const callOpenAIAPI = async (props: callGenerativeAIAPIProps) => {
     model: props.model.name,
     messages: props.thread.messages as MessageForOpenAIAPI[],
     stream: true,
+    user: props.user,
   });
 };
 
@@ -58,6 +65,8 @@ const callOpenAIImageGenerationAPI = async (
   return await openai.images.generate({
     model: props.model.name,
     prompt: props.thread.messages[props.thread.messages.length - 1].content,
+    user: props.user,
+    size: (props.resolution?.value ?? "512x512") as ImageGenerateParams["size"],
   });
 };
 

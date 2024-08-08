@@ -1,4 +1,4 @@
-import { Model } from "../types";
+import { Model, Resolution } from "../types";
 
 export const llmModel: Model[] = [
   {
@@ -7,6 +7,7 @@ export const llmModel: Model[] = [
     shortName: "GPT-3.5",
     description: "Basic model",
     type: "chat",
+    tier: "low",
   },
   {
     vendor: "OpenAI",
@@ -14,6 +15,7 @@ export const llmModel: Model[] = [
     shortName: "GPT-4o",
     description: "OpenAI Latest",
     type: "chat",
+    tier: "high",
   },
   {
     vendor: "OpenAI",
@@ -21,6 +23,7 @@ export const llmModel: Model[] = [
     shortName: "GPT-4o Mini",
     description: "Most cost-efficient small model",
     type: "chat",
+    tier: "medium",
   },
   {
     vendor: "Anthropic",
@@ -28,6 +31,7 @@ export const llmModel: Model[] = [
     shortName: "Claude 3.5 Sonnet",
     description: "Most Intelligent Claude",
     type: "chat",
+    tier: "high",
   },
   {
     vendor: "OpenAI",
@@ -35,6 +39,7 @@ export const llmModel: Model[] = [
     shortName: "Dall-E 2",
     description: "Previous generation Dall-E",
     type: "image",
+    tier: "low",
   },
   {
     vendor: "OpenAI",
@@ -42,5 +47,29 @@ export const llmModel: Model[] = [
     shortName: "Dall-E 3",
     description: "Image generation",
     type: "image",
+    tier: "high",
+  },
+];
+
+export const AvailResolutions: Resolution[] = [
+  {
+    value: "256x256",
+    model: ["dall-e-2"],
+  },
+  {
+    value: "512x512",
+    model: ["dall-e-2"],
+  },
+  {
+    value: "1024x1024",
+    model: ["dall-e-2", "dall-e-3"],
+  },
+  {
+    value: "1792x1024",
+    model: ["dall-e-3"],
+  },
+  {
+    value: "1024x1792",
+    model: ["dall-e-3"],
   },
 ];

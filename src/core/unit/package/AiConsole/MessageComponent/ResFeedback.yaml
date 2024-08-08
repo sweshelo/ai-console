@@ -609,7 +609,7 @@ Children:
                   Data: ID:StyledText:Components:FrooxEngine.UIX.Text:0
                 Undo:
                   ID: "?"
-                  Data: false
+                  Data: true
                 UndoDescription:
                   ID: "?"
                   Data: null
@@ -1032,7 +1032,7 @@ Children:
                           Data: true
                         Font:
                           ID: "?"
-                          Data: ID:Assets:FrooxEngine.FontChain:ID:3
+                          Data: ID:Assets:FrooxEngine.FontChain:ID:1
                         Content:
                           ID: ID:StyledText:Components:FrooxEngine.UIX.Text:Content:0
                           Data: ""
@@ -1066,7 +1066,7 @@ Children:
                           ID: "?"
                           Data:
                             - ID: "?"
-                              Data: ID:Assets:FrooxEngine.UI_TextUnlitMaterial:ID:4
+                              Data: ID:Assets:FrooxEngine.UI_TextUnlitMaterial:ID:1
                         LineHeight:
                           ID: "?"
                           Data: 266.6666666666667

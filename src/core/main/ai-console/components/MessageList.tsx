@@ -15,9 +15,14 @@ import {
   StyledText,
 } from "../../../unit/package/StyledUix/main";
 import { MessageComponent, Image } from "../../../unit/package/AiConsole/main";
+import { createColor } from "../../../lib/styledUnit";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
   <StyledMask>
+    <StyledImage
+      defaultColor={[0.2, 0.2, 0.2, 1.0]}
+      styledSprite={Sprite.kadomaru}
+    />
     <StyledScrollArea verticalFit="PreferredSize">
       <VerticalLayout
         forceExpandChildHeight={false}

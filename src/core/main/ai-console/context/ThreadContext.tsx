@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Message, Model, Thread } from "../types";
 import { callGenerativeAIAPI } from "../api";
-import { llmModel } from "../api/const";
+import { AvailResolutions, llmModel } from "../api/const";
 import { MessageStream } from "@anthropic-ai/sdk/lib/MessageStream";
 import { ChatCompletionChunk, ImagesResponse } from "openai/resources";
 import { Stream as OpenAIStream } from "openai/streaming";
+import { FunctionEnv } from "../../../../lib/mirage-x/common/interactionEvent";
+import { getContacts } from "../resonite-api/client";
 
 interface ThreadContextProps {
   prompt: string;
@@ -15,9 +17,16 @@ interface ThreadContextProps {
   setThread: (thread: Thread) => void;
   modelIndex: number;
   setModelIndex: (index: number) => void;
-  callAiAPI: () => void;
+  callAiAPI: (env: FunctionEnv) => void;
   isGenerating: boolean;
   setGenerating: (isGenerating: boolean) => void;
+  resolutionIndex: number;
+  setResolutionIndex: (index: number) => void;
+  error: string;
+  setError: (error: string) => void;
+  contacts: Array<string>;
+  setContacts: (contacts: Array<string>) => void;
+  getResoniteContacts: () => Promise<void>;
 }
 
 const ThreadContext = createContext<ThreadContextProps | undefined>(undefined);
@@ -47,8 +56,12 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
   const [thread, setThread] = useState<Thread>({ messages: [] });
   const [modelIndex, setModelIndex] = useState(0);
   const [isGenerating, setGenerating] = useState(false);
+  const [resolutionIndex, setResolutionIndex] = useState(0);
+  const [temperature, setTemperature] = useState(1);
+  const [error, setError] = useState("");
+  const [contacts, setContacts] = useState<Array<string>>([]);
 
-  const callAiAPI = async () => {
+  const callAiAPI = async (env: FunctionEnv) => {
     if (prompt.trim().length === 0) return;
 
     // 何故かAnthropicAPIを呼ぶときだけsetGenerating(true)が動かない
@@ -67,12 +80,12 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
         ],
       } as Thread;
 
-      callGenerativeAI(updatedThread);
+      callGenerativeAI(updatedThread, env);
       return updatedThread;
     });
   };
 
-  const callGenerativeAI = async (_thread: Thread) => {
+  const callGenerativeAI = async (_thread: Thread, env: FunctionEnv) => {
     if (llmModel[modelIndex].type === "image") {
       setThread((prevThread) => {
         return {
@@ -89,9 +102,27 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
     }
 
     try {
+      if (!env.userId)
+        throw new Error("You must be logged in to use this service.");
+
+      if (!contacts || contacts.length === 0) {
+        await getResoniteContacts();
+        throw new Error(
+          "Initial authentication process was performed. Please execute again."
+        );
+      }
+
+      if (
+        !contacts.find((c) => c === env.userId) &&
+        llmModel[modelIndex].tier !== "low"
+      )
+        throw new Error("Sorry, this model is only for author friends.");
+
       const result = await callGenerativeAIAPI({
         model: llmModel[modelIndex] as Model,
         thread: _thread,
+        user: env.userId,
+        resolution: AvailResolutions[resolutionIndex],
       });
 
       if (result instanceof OpenAIStream || result instanceof MessageStream) {
@@ -151,20 +182,7 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
         }
       }
     } catch (error) {
-      setThread((prevThread) => {
-        return {
-          messages: [
-            ...prevThread.messages,
-            {
-              role: "system",
-              content: `<color=red>[ERROR]</color> Something went wrong. Please contact Sweshelo.\n----------\n${
-                (error as Error).message
-              }`,
-              type: "chat",
-            },
-          ],
-        } as Thread;
-      });
+      setError((error as Error).message);
     } finally {
       setGenerating(false);
     }
@@ -185,6 +203,15 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
     });
   };
 
+  const getResoniteContacts = async () => {
+    try {
+      const _contacts = await getContacts();
+      setContacts(_contacts);
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
+
   return (
     <ThreadContext.Provider
       value={{
@@ -199,6 +226,13 @@ export const ThreadProvider: React.FC<ThreadProviderProps> = ({ children }) => {
         callAiAPI,
         isGenerating,
         setGenerating,
+        resolutionIndex,
+        setResolutionIndex,
+        error,
+        setError,
+        contacts,
+        setContacts,
+        getResoniteContacts,
       }}
     >
       {children}

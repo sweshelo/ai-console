@@ -4,6 +4,7 @@ export type Model = {
   type?: "chat" | "image";
   shortName: string;
   description: string;
+  tier: "low" | "medium" | "high";
 };
 
 export type Message = {
@@ -22,4 +23,9 @@ export type MessageForAnthropicAPI = Omit<Message, "role" | "ai" | "author"> & {
 
 export type Thread = {
   messages: Message[];
+};
+
+export type Resolution = {
+  value: string;
+  model: Model["name"][];
 };
