@@ -12,8 +12,8 @@ Resoniteで複数のAIサービスを統合して利用するためのコンソ�
 - [ ] Image
 
 ### Feature
-- [ ] Export Text
-- [ ] Export Image
+- [x] Export Text
+- [x] Export Image
 - [ ] History Backing up
 
 # dev
