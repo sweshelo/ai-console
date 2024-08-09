@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  HorizontalLayout,
   LayoutElement,
   OverlappingLayout,
   VerticalLayout,
@@ -11,6 +12,11 @@ import {
 } from "../../../unit/package/StyledUix/main";
 import { Color, Material, Sprite } from "../style";
 import { useThread } from "../context/ThreadContext";
+import { createColor } from "../../../lib/styledUnit";
+import {
+  ButtonClipboardCopyText,
+  ContactLink,
+} from "../../../unit/package/Primitive/main";
 
 export const ErrorDialog = () => {
   const { error, setError } = useThread();
@@ -23,7 +29,7 @@ export const ErrorDialog = () => {
       paddingTop={300}
     >
       <StyledImage
-        defaultColor={[0, 0, 0, 0.9]}
+        defaultColor={[0, 0, 0, 0.99]}
         styledSprite={Sprite.kadomaru}
       />
       <VerticalLayout
@@ -50,6 +56,12 @@ export const ErrorDialog = () => {
             horizontalAlign="Center"
             verticalAlign="Middle"
           />
+        </LayoutElement>
+        <LayoutElement minHeight={60}>
+          <HorizontalLayout spacing={10}>
+            <ContactLink userId={process.env.CV_OWNER_ID} />
+            {/* <ButtonClipboardCopyText value={error}/> */}
+          </HorizontalLayout>
         </LayoutElement>
         <LayoutElement minHeight={80}>
           <StyledButton
