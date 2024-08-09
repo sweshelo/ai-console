@@ -14,7 +14,6 @@ type UserContactsResponse = Array<Contacts>;
 
 export const getContacts = async (): Promise<Array<Contacts["id"]>> => {
   const hash = createHash("sha256");
-  console.log(process.env.RESONITE_HW_ID);
   hash.update(process.env.RESONITE_HW_ID as string);
   const uid = hash.digest("hex") as string;
 
@@ -51,11 +50,6 @@ export const getContacts = async (): Promise<Array<Contacts["id"]>> => {
       },
     })
   ).json();
-
-  console.log(
-    contacts,
-    contacts.filter((c) => c.isAccepted === true)
-  );
 
   return contacts.filter((c) => c.isAccepted).map((c) => c.id);
 };
